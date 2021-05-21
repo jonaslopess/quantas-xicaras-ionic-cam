@@ -1,0 +1,22 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Listagem de Ingredientes</ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <ion-list>
+        <ion-item *ngFor="let ingrediente of ingredientes; let i = index" 
+        [routerLink]="['/edita-ingrediente',i]">
+            <ion-avatar slot="start">
+                <img [src]="ingrediente.img">
+            </ion-avatar>
+            <ion-label>
+                <h2>{{ingrediente.nome}}</h2>
+                <h3>{{ingrediente.regra_conversao}} g/ml</h3>
+            </ion-label>
+        </ion-item>
+    </ion-list>
+</ion-content>

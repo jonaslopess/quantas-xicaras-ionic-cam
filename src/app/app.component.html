@@ -1,3 +1,43 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+  <ion-split-pane when='sm' contentId="main-content">
+    <ion-menu contentId="main-content">
+      <ion-header [translucent]="true">
+        <ion-toolbar>
+          <ion-title>Menu</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <ion-list>
+          <ion-list-header>
+            Navegar
+          </ion-list-header>
+          <ion-menu-toggle auto-hide='false'>
+            <ion-item routerLink="" button>
+              <ion-icon slot='start' name='calculator-outline'></ion-icon>
+              <ion-label>
+                Conversor
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+          <ion-menu-toggle auto-hide='false'>
+            <ion-item routerLink="/ingredientes">
+              <ion-icon slot='start' name="list-outline"></ion-icon>
+              <ion-label>
+                Lista de Ingredientes
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+          <ion-menu-toggle auto-hide='false'>            
+            <ion-item  routerLink="/novo-ingrediente">
+              <ion-icon slot='start' name="basket-outline"></ion-icon>
+              <ion-label>
+                Novo Ingrediente
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+      </ion-content>
+    </ion-menu>
+    <ion-router-outlet id='main-content'></ion-router-outlet>
+  </ion-split-pane>
 </ion-app>

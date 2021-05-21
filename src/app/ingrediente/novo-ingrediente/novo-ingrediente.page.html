@@ -1,0 +1,42 @@
+<ion-header>
+    <ion-toolbar>
+    <ion-buttons slot="start">
+        <ion-menu-toggle>
+        <ion-button>
+            <ion-icon slot="icon-only" name="menu"></ion-icon>
+        </ion-button>
+        </ion-menu-toggle>
+    </ion-buttons>
+    <ion-title>Novo Ingrediente</ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content fullscreen class='ion-padding'>
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+        <ion-list>
+        
+            <ion-item>
+                <ion-label for="nome">Nome:</ion-label>
+                <ion-input type="text" id="nome" name="nome" ngModel required>
+                </ion-input>
+            </ion-item>
+
+            <ion-item>
+
+                <ion-label for="regra">Regra de Conversão (g/ml): </ion-label>
+                <ion-input type="number" step="0.01" id="regra" name="regra" ngModel required></ion-input>
+
+            </ion-item>
+
+            <ion-item>
+
+                <ion-label for="regra">Imagem: </ion-label>
+                <ion-button (click)="selectImage()">Escolha uma imagem</ion-button>
+
+            </ion-item>
+
+            <ion-button color='dark' type="submit" expand="block" fill="outline">
+                Cadastrar
+            </ion-button> 
+        </ion-list>
+    </form>
+</ion-content>

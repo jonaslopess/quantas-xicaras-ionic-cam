@@ -1,5 +1,7 @@
 {
   "name": "quantas-xicaras",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

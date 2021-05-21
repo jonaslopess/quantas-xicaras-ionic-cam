@@ -11,6 +11,18 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
+  {
+    path: 'ingredientes',
+    loadChildren: () => import('./ingrediente/ingredientes/ingredientes.module').then( m => m.IngredientesPageModule)
+  },
+  {
+    path: 'novo-ingrediente',
+    loadChildren: () => import('./ingrediente/novo-ingrediente/novo-ingrediente.module').then( m => m.NovoIngredientePageModule)
+  },
+  {
+    path: 'edita-ingrediente/:id',
+    loadChildren: () => import('./ingrediente/edita-ingrediente/edita-ingrediente.module').then( m => m.EditaIngredientePageModule)
+  },
 ];
 
 @NgModule({

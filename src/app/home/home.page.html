@@ -1,20 +1,77 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
+    <ion-buttons slot="start">
+        <ion-menu-toggle>
+        <ion-button>
+            <ion-icon slot="icon-only" name="menu"></ion-icon>
+        </ion-button>
+        </ion-menu-toggle>
+    </ion-buttons>
+    <ion-title>Quantas Xícaras?</ion-title>
     </ion-toolbar>
-  </ion-header>
+</ion-header>
+<ion-content fullscreen class='ion-padding'>
+    <ion-text class="ion-text-center">
+        <h1>Conversor de unidades de medidas culinárias</h1>
+    </ion-text>
+    
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+        <ion-list>
+        
+            <ion-item>
+                <ion-label for="ingrediente">Ingrediente:</ion-label>
+                <ion-select interface="popover" name="ingrediente" id="ingrediente" ngModel required>
+                    <ion-select-option *ngFor="let ingrediente of ingredientes; let i = index" [value]="i">
+                        {{ingrediente.nome}}
+                    </ion-select-option>
+                </ion-select>
+            </ion-item>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+
+
+            <ion-item>
+                <ion-label for="quantidade_entrada">Quantidade:</ion-label>
+                <ion-input type="number" id="quantidade_entrada" name="quantidade_entrada" ngModel required></ion-input>
+            </ion-item>
+            
+
+
+            <ion-item>
+                <ion-label for="unidade_entrada">Unidade de entrada:</ion-label>
+                <ion-select interface="popover" name="unidade_entrada" id="unidade_entrada" ngModel required>
+                    <ion-select-option value="1">gramas</ion-select-option>
+                    <ion-select-option value="2">mililitros</ion-select-option>
+                    <ion-select-option value="3">xícaras (240ml)</ion-select-option>
+                    <ion-select-option value="4">colheres de sopa (15ml)</ion-select-option>
+                    <ion-select-option value="5">colheres de chá (5ml)</ion-select-option>
+                </ion-select>
+            </ion-item>
+
+            <ion-item>
+                <ion-label for="unidade_saida">Unidade de saída:</ion-label>
+                <ion-select interface="popover" name="unidade_saida" id="unidade_saida" ngModel required>
+                    <ion-select-option value="1">gramas</ion-select-option>
+                    <ion-select-option value="2">mililitros</ion-select-option>
+                    <ion-select-option value="3">xícaras (240ml)</ion-select-option>
+                    <ion-select-option value="4">colheres de sopa (15ml)</ion-select-option>
+                    <ion-select-option value="5">colheres de chá (5ml)</ion-select-option>
+                </ion-select>
+
+            </ion-item>
+
+
+            <ion-button color='dark' type="submit" expand="block" fill="outline">
+                Converter
+            </ion-button>
+
+
+            
+        </ion-list>
+    </form>
+
+    <ion-text>
+        <ion-label for="quantidade_saida" position="fixed">Valor convertido:</ion-label>
+        <h5 id="quantidade_saida">{{valorConvertido}}</h5>
+    </ion-text>
+
 </ion-content>
