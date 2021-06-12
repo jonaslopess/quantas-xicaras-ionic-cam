@@ -8,8 +8,8 @@
 </ion-header>
 <ion-content>
     <ion-list>
-        <ion-item *ngFor="let ingrediente of ingredientes; let i = index" 
-        [routerLink]="['/edita-ingrediente',i]">
+        <ion-item *ngFor="let ingrediente of ingredientes" 
+        [routerLink]="['/edita-ingrediente', ingrediente.id]">
             <ion-avatar slot="start">
                 <img [src]="ingrediente.img">
             </ion-avatar>

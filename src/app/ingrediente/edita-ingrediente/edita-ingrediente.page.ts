@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ActionSheetController } from '@ionic/angular';
+import { ActionSheetController, LoadingController } from '@ionic/angular';
 
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 
 import { IngredienteService } from '../ingrediente.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Ingrediente } from '../ingrediente';
+import { IngredienteHttpService } from '../ingrediente-http.service';
 
 @Component({
   selector: 'app-edita-ingrediente',
@@ -13,44 +15,69 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class EditaIngredientePage implements OnInit {
 
-  id : number = 0
-  ingrediente : any
-
-  imagePath : string
+  //id : number = 0
+  id: string = '0'
+  ingrediente: Ingrediente | null = null
+  imagePath: string
 
   constructor(
     private camera: Camera,
     public actionSheetController: ActionSheetController,
-    private ingredienteService : IngredienteService,
-    private router : Router,
-    private route : ActivatedRoute
+    private ingredienteService: IngredienteService,
+    private router: Router,
+    private route: ActivatedRoute,
+
+    private ingredienteHttpService: IngredienteHttpService
   ) { }
 
   ngOnInit() {
-    this.id = Number(this.route.snapshot.paramMap.get('id'));
-    this.ingrediente = this.ingredienteService.getIngrediente(this.id)
-    if(this.ingrediente == null){
-      this.router.navigate([''])
-    }
-    this.imagePath = this.ingrediente.img
+    /*this.id = Number(this.route.snapshot.paramMap.get('id'));
+    this.ingredienteService.getIngrediente(this.id)
+    .then(value =>{
+      this.ingrediente = value
+      if(this.ingrediente == null)
+        this.router.navigate([''])
+      else
+        this.imagePath = this.ingrediente.img
+    })*/
+
+    this.id = this.route.snapshot.paramMap.get('id');
+    this.ingredienteHttpService.readById(this.id).subscribe(ingrediente => {
+      this.ingrediente = ingrediente
+      this.imagePath = this.ingrediente.img
+    })
+
   }
 
-  onSubmit(form:any){
-    let nome : string = form.value.nome
-    let regra : number = Number(form.value.regra)
-    let img : string = this.imagePath
-    this.ingredienteService.editIngrediente(this.id, nome,regra,img)
-    this.router.navigate(['/ingredientes']);
+  delete(id : number){
+    this.ingredienteHttpService.delete(this.id).subscribe(()=>{
+      this.router.navigate(['/ingredientes'])
+    })
   }
 
-  pickImage(sourceType){
+  onSubmit(form: any) {
+    this.ingrediente.nome = form.value.nome
+    this.ingrediente.regra_conversao = Number(form.value.regra)
+    this.ingrediente.img = this.imagePath
+
+    //this.ingredienteService.editIngrediente(this.id, this.ingrediente)
+    //this.router.navigate(['/ingredientes'])
+
+    this.ingredienteHttpService.update(this.ingrediente).subscribe(() => {
+      this.router.navigate(['/ingredientes'])
+    })
+
+  }
+
+  pickImage(sourceType) {
     const options: CameraOptions = {
       quality: 100,
-      destinationType: this.camera.DestinationType.FILE_URI,
+      destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
+      sourceType: sourceType,
       mediaType: this.camera.MediaType.PICTURE,
-      targetHeight: 40,
-      targetWidth: 40
+      targetWidth: 40,
+      targetHeight: 40
     }
     this.camera.getPicture(options).then((imageData) => {
       // imageData is either a base64 encoded string or a file URI
@@ -60,7 +87,7 @@ export class EditaIngredientePage implements OnInit {
     });
   }
 
-  async selectImage(){
+  async selectImage() {
     const actionSheet = await this.actionSheetController.create({
       header: "Seleciona a fonte da imagem",
       buttons: [{

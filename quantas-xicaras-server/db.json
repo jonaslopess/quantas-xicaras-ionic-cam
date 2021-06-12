@@ -1,0 +1,58 @@
+{
+  "ingredientes": [
+    {
+      "id": 2,
+      "nome": "aliqua",
+      "regra_conversao": 1,
+      "img": "http://placehold.it/32x32"
+    },
+    {
+      "id": 3,
+      "nome": "laborum",
+      "regra_conversao": 0.4792,
+      "img": "http://placehold.it/32x32"
+    },
+    {
+      "id": 4,
+      "nome": "pariatur",
+      "regra_conversao": 1.462,
+      "img": "http://placehold.it/32x32"
+    },
+    {
+      "id": 5,
+      "nome": "amet",
+      "regra_conversao": 0.1886,
+      "img": "http://placehold.it/32x32"
+    },
+    {
+      "id": 6,
+      "nome": "consectetur",
+      "regra_conversao": 2.5921,
+      "img": "http://placehold.it/32x32"
+    },
+    {
+      "id": 7,
+      "nome": "magna",
+      "regra_conversao": 0.5867,
+      "img": "http://placehold.it/32x32"
+    },
+    {
+      "id": 8,
+      "nome": "enim",
+      "regra_conversao": 1.264,
+      "img": "http://placehold.it/32x32"
+    },
+    {
+      "id": 9,
+      "nome": "incididunt",
+      "regra_conversao": 2.7804,
+      "img": "http://placehold.it/32x32"
+    },
+    {
+      "id": 10,
+      "nome": "duis",
+      "regra_conversao": 0.3265,
+      "img": "http://placehold.it/32x32"
+    }
+  ]
+}

@@ -21,7 +21,7 @@
             <ion-item>
                 <ion-label for="ingrediente">Ingrediente:</ion-label>
                 <ion-select interface="popover" name="ingrediente" id="ingrediente" ngModel required>
-                    <ion-select-option *ngFor="let ingrediente of ingredientes; let i = index" [value]="i">
+                    <ion-select-option *ngFor="let ingrediente of ingredientes" [value]="ingrediente.id">
                         {{ingrediente.nome}}
                     </ion-select-option>
                 </ion-select>

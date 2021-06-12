@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ActionSheetController } from '@ionic/angular';
+import { ActionSheetController, LoadingController, ToastController } from '@ionic/angular';
 
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 
 import { IngredienteService } from '../ingrediente.service';
+import { IngredienteHttpService } from '../ingrediente-http.service';
+import { Ingrediente } from '../ingrediente';
 
 @Component({
   selector: 'app-novo-ingrediente',
@@ -13,13 +15,16 @@ import { IngredienteService } from '../ingrediente.service';
 })
 export class NovoIngredientePage implements OnInit {
   
-  private imagePath : string = "../../asset/pacote.png";
+  private imagePath : string = "../../assets/pacote.png";
   
   constructor(
     private camera : Camera,
     private ingredienteService : IngredienteService,
     private router : Router,
-    public actionSheetController : ActionSheetController
+    public actionSheetController : ActionSheetController,
+    private toastController : ToastController,
+
+    private ingredienteHttpService : IngredienteHttpService
   ) { }
 
   ngOnInit(): void {
@@ -29,11 +34,32 @@ export class NovoIngredientePage implements OnInit {
     let nome : string = form.value.nome
     let regra : number = Number(form.value.regra)
     let img : string = this.imagePath
-    this.ingredienteService.addIngrediente(nome,regra,img)
-    this.router.navigate(['/ingredientes']);
+    /*this.ingredienteService.addIngrediente(nome,regra,img)
+    .then(()=>{
+      this.toastPresent()
+      setTimeout(() => {
+        this.router.navigate(['/ingredientes'])
+      }, 1000)
+    })*/
+
+
+    this.ingredienteHttpService.create(new Ingrediente('',nome,regra,img)).subscribe(() => {
+        this.toastPresent()
+        this.router.navigate(['/ingredientes'])
+      }
+    )
+    
   }
 
-  
+  private async toastPresent(){
+    const toast = await this.toastController.create({
+      color: 'dark',
+      duration: 2000,
+      message: 'Ingrediente cadastrado!'
+    });
+    await toast.present();
+  }
+
   pickImage(sourceType){
     const options: CameraOptions = {
       quality: 100,

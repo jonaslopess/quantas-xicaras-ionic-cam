@@ -1,0 +1,9 @@
+[
+  '{{repeat(10, 10)}}',
+  {
+    id: "{{index()+1}}",
+    nome: '{{lorem(1,"words")}}',
+    regra_conversao: '{{floating(0.000,3.000)}}',
+    img: 'http://placehold.it/32x32'
+  }
+]

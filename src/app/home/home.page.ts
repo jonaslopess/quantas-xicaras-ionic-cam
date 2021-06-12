@@ -15,16 +15,26 @@ export class HomePage implements OnInit {
   valorConvertido : string
 
   onSubmit(form){
-    let unidade_entrada : Unidade = this.getUnidade(
-      Number(form.value.unidade_entrada)
-    )
-    let unidade_saida : Unidade = this.getUnidade(
-      Number(form.value.unidade_saida)
-    )
-    let quantidade_entrada : number = Number(form.value.quantidade_entrada)
-    let regra_conversao : number = this.ingredienteService.getIngrediente(form.value.ingrediente).regra_conversao
+    
+    let ingrediente : Ingrediente
+    this.ingredienteService.getIngrediente(form.value.ingrediente)
+    .then(value => {
+      ingrediente = value;
+      let unidade_entrada : Unidade = this.getUnidade(
+        Number(form.value.unidade_entrada)
+      );
+      let unidade_saida : Unidade = this.getUnidade(
+        Number(form.value.unidade_saida)
+      );
+      let quantidade_entrada : number = Number(form.value.quantidade_entrada);
+      console.log(unidade_entrada, unidade_saida, quantidade_entrada, ingrediente)
+      let regra_conversao : number = ingrediente.regra_conversao
 
-    this.valorConvertido = unidade_saida.converter(unidade_entrada,quantidade_entrada,regra_conversao)
+      this.valorConvertido = unidade_saida.converter(unidade_entrada,quantidade_entrada,regra_conversao)
+    });
+    
+
+    
 
   }
 
@@ -37,8 +47,11 @@ export class HomePage implements OnInit {
     return null;
   }
   
-  constructor(private ingredienteService : IngredienteService) { 
-    this.ingredientes = ingredienteService.getIngredientes()
+  constructor(private ingredienteService : IngredienteService) {
+    this.ingredienteService.getIngredientes()
+    .then(results => {
+      this.ingredientes = results;
+    });
   }
 
   ngOnInit(): void {
